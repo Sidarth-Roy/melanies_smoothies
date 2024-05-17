@@ -15,8 +15,11 @@ st.write(
 name_on_order = st.text_input("Name on Smoothie")
 st.write("The name on your Smoothie will be:", name_on_order)
 
-cnx=st.connection("snowflake")
+# cnx=st.connection("snowflake")
+cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+
 session = cnx.session()
+
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
 # st.dataframe(data=my_dataframe, use_container_width=True)
 # st.stop()
